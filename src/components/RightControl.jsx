@@ -3,7 +3,7 @@ import React from 'react'
 
 function RightControl() {
   return (
-    <div className="w-24 h-[280px] bg-rose-500 rounded-r-[30px] p-3 flex flex-col items-center justify-between">
+    <div className="w-24 h-[280px] bg-rose-500 rounded-r-[30px] p-3 flex flex-col items-center justify-between pointer-events-none select-none">
       <button className="w-6 h-6 rounded-full bg-zinc-900 text-white text-xs">+</button>
 
       <div className="grid grid-cols-3 gap-1">

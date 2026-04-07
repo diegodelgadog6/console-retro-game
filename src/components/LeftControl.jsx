@@ -3,7 +3,7 @@ import React from 'react'
 
 function LeftControl() {
   return (
-    <div className="w-24 h-[280px] bg-cyan-400 rounded-l-[30px] p-3 flex flex-col items-center justify-between">
+    <div className="w-24 h-[280px] bg-cyan-400 rounded-l-[30px] p-3 flex flex-col items-center justify-between pointer-events-none select-none">
       <button className="w-12 h-12 rounded-full bg-zinc-900 text-white text-lg">L</button>
 
       <div className="grid grid-cols-3 gap-1">
