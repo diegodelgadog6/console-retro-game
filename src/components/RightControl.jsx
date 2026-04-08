@@ -1,7 +1,7 @@
 
 import React from 'react'
 
-function RightControl() {
+function RightControl({ handleSelection }) {
   return (
     <div className="w-24 h-[280px] bg-rose-500 rounded-r-[30px] p-3 flex flex-col items-center justify-between select-none">
       <button onClick={() => console.log('Click en +')} className="w-6 h-6 rounded-full bg-zinc-900 text-white text-xs active:scale-95 transition-transform">+</button>
@@ -12,7 +12,7 @@ function RightControl() {
         <div className="w-7 h-7"></div>
         <button className="w-7 h-7 rounded-full bg-zinc-900 text-white">y</button>
         <button className="w-7 h-7 rounded-full bg-zinc-900 text-white">o</button>
-        <button className="w-7 h-7 rounded-full bg-zinc-900 text-white">a</button>
+        <button onClick={handleSelection} className="w-7 h-7 rounded-full bg-zinc-900 text-white">a</button>
         <div className="w-7 h-7"></div>
         <button className="w-7 h-7 rounded-full bg-zinc-900 text-white">b</button>
         <div className="w-7 h-7"></div>

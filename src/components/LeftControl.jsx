@@ -1,20 +1,20 @@
 
 import React from 'react'
 
-function LeftControl() {
+function LeftControl({ handleDirection }) {
   return (
     <div className="w-24 h-[280px] bg-cyan-400 rounded-l-[30px] p-3 flex flex-col items-center justify-between select-none">
-      <button onClick={() => console.log('Click en L')} className="w-12 h-12 rounded-full bg-zinc-900 text-white text-lg active:scale-95 transition-transform">L</button>
+      <button className="w-12 h-12 rounded-full bg-zinc-900 text-white text-lg active:scale-95 transition-transform">L</button>
 
       <div className="grid grid-cols-3 gap-1">
         <div className="w-7 h-7"></div>
-        <button className="w-7 h-7 rounded bg-zinc-800 text-white">^</button>
+        <button onClick={() => handleDirection('up')} className="w-7 h-7 rounded bg-zinc-800 text-white active:scale-95 transition-transform">^</button>
         <div className="w-7 h-7"></div>
-        <button className="w-7 h-7 rounded bg-zinc-800 text-white">&lt;</button>
+        <button onClick={() => handleDirection('left')} className="w-7 h-7 rounded bg-zinc-800 text-white active:scale-95 transition-transform">&lt;</button>
         <button className="w-7 h-7 rounded bg-zinc-800 text-white">o</button>
-        <button className="w-7 h-7 rounded bg-zinc-800 text-white">&gt;</button>
+        <button onClick={() => handleDirection('right')} className="w-7 h-7 rounded bg-zinc-800 text-white active:scale-95 transition-transform">&gt;</button>
         <div className="w-7 h-7"></div>
-        <button className="w-7 h-7 rounded bg-zinc-800 text-white">v</button>
+        <button onClick={() => handleDirection('down')} className="w-7 h-7 rounded bg-zinc-800 text-white active:scale-95 transition-transform">v</button>
         <div className="w-7 h-7"></div>
       </div>
 
