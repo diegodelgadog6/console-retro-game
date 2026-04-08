@@ -14,7 +14,7 @@ const Screen = ({ pokemones, position }) => {
   }, [position, pokemones])
 
   return (
-    <div ref={containerRef} className="w-[450px] h-[280px] overflow-y-auto border-4 border-solid p-3">
+    <div ref={containerRef} className="w-[450px] h-[280px] overflow-y-auto border-10 border-solid p-8">
       <div className="mb-2 text-sm">Selecciona 2 Pokémon</div>
       <div className="grid grid-cols-3 gap-2">
         {pokemones?.map((pokemon, index) => (

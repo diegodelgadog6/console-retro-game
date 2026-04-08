@@ -36,6 +36,29 @@ function App() {
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled)
   }
 
+  const getListPokemones = () => {
+    const list = data?.results?.slice(0, 60).filter((p) => p.url)
+    const plist = list?.map((l) => fetch(l.url).then((res) => res.json()))
+
+    Promise.all(plist).then((values) => {
+      const saniData = values.map((e) => {
+        return {
+          id: e.id,
+          name: e.name,
+          moves: e.moves.map((move) => {
+            return {
+              ...move,
+              attack: getRandomInt(1, 400),
+            }
+          }),
+          sprites: e.sprites,
+        }
+      })
+
+      setPokemones(saniData)
+    })
+  }
+
   const computerSelection = () => {
     if (!pokemones.length) return
 
@@ -82,14 +105,7 @@ function App() {
   useEffect(() => {
     if (!data?.results) return
 
-    const getPokemonDetails = async () => {
-      const list = data.results.slice(0, 60).filter((pokemon) => pokemon.url)
-      const requests = list.map((pokemon) => fetch(pokemon.url).then((res) => res.json()))
-      const values = await Promise.all(requests)
-      setPokemones(values)
-    }
-
-    getPokemonDetails()
+    getListPokemones()
   }, [data])
 
   return (
