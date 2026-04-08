@@ -5,7 +5,7 @@ function GameScreen({ selectedPokemons = [] }) {
 
   return (
     <div className="w-[450px] h-[280px] border-4 border-solid bg-white p-3">
-      <h2 className="mb-3 text-center text-lg font-bold">Pantalla de juego</h2>
+      <h2 className="mb-3 text-center text-lg font-bold">VS</h2>
 
       <div className="grid grid-cols-2 gap-3">
         {[playerPokemon, rivalPokemon].map((pokemon, index) => (

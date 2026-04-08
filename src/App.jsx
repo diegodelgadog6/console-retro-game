@@ -9,65 +9,74 @@ import useFetch from './hooks/useFetch'
 
 function App() {
   const url = 'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0'
-  const { data, loading, error } = useFetch(url)
+  const { data } = useFetch(url)
   const [pokemones, setPokemones] = useState([])
   const [position, setPosition] = useState(0)
-  const [selectedPokemons, setSelectedPokemons] = useState([])
-  const [screenMode, setScreenMode] = useState('selection')
-
-  const moveCursor = (delta) => {
-    setPosition((prev) => {
-      const nextPosition = prev + delta
-      const maxPosition = Math.max(0, pokemones.length - 1)
-
-      if (nextPosition < 0) return 0
-      if (nextPosition > maxPosition) return maxPosition
-      return nextPosition
-    })
-  }
+  const [myPokeSelection, setMyPokeSelection] = useState([])
+  const [pcPokeSelection, setPcPokeSelection] = useState([])
 
   const handleDirection = (direction) => {
-    if (direction === 'up') {
-      moveCursor(-3)
-    }
-
-    if (direction === 'down') {
-      moveCursor(3)
-    }
-
-    if (direction === 'left') {
-      moveCursor(-1)
-    }
+    const maxPosition = Math.max(0, pokemones.length - 1)
+    console.log({ direction })
 
     if (direction === 'right') {
-      moveCursor(1)
+      setPosition((prev) => Math.min(prev + 1, maxPosition))
+    } else if (direction === 'left') {
+      setPosition((prev) => Math.max(prev - 1, 0))
+    } else if (direction === 'up') {
+      setPosition((prev) => Math.max(prev - 3, 0))
+    } else if (direction === 'down') {
+      setPosition((prev) => Math.min(prev + 3, maxPosition))
     }
+  }
+
+  function getRandomInt(min, max) {
+    const minCeiled = Math.ceil(min)
+    const maxFloored = Math.floor(max)
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled)
+  }
+
+  const computerSelection = () => {
+    if (!pokemones.length) return
+
+    const rnd = getRandomInt(0, pokemones.length)
+    const pc = pokemones[rnd]
+
+    if (!pc) return
+
+    setPcPokeSelection([pc])
   }
 
   const handleSelection = () => {
-    if (screenMode !== 'selection') return
-
     const currentPokemon = pokemones[position]
 
     if (!currentPokemon) return
 
-    setSelectedPokemons((prev) => {
-      if (prev.some((pokemon) => pokemon.id === currentPokemon.id)) {
-        return prev
-      }
+    if (!myPokeSelection.length) {
+      console.log({ firstSelection: currentPokemon })
+      setMyPokeSelection([currentPokemon])
+      return
+    }
 
-      if (prev.length >= 2) {
-        return prev
-      }
+    if (!pcPokeSelection.length) {
+      if (myPokeSelection[0]?.id === currentPokemon.id) return
+      console.log({ secondSelection: currentPokemon })
+      setPcPokeSelection([currentPokemon])
+    }
+  }
 
-      const nextSelection = [...prev, currentPokemon]
+  const handleBackSelection = () => {
+    console.log('Back selection')
+    if (pcPokeSelection.length) {
+      console.log({ removed: pcPokeSelection[0] })
+      setPcPokeSelection([])
+      return
+    }
 
-      if (nextSelection.length === 2) {
-        setScreenMode('game')
-      }
-
-      return nextSelection
-    })
+    if (myPokeSelection.length) {
+      console.log({ removed: myPokeSelection[0] })
+      setMyPokeSelection([])
+    }
   }
 
   useEffect(() => {
@@ -86,15 +95,12 @@ function App() {
   return (
     <div className='min-h-screen bg-white flex items-center justify-center gap-0 p-6'>
       <LeftControl handleDirection={handleDirection} />
-      {loading && <div className="w-[450px] h-[280px] border-4 border-solid flex items-center justify-center">Cargando...</div>}
-      {error && <div className="w-[450px] h-[280px] border-4 border-solid flex items-center justify-center">Error cargando datos</div>}
-      {!loading && !error && screenMode === 'selection' && (
-        <Screen pokemones={pokemones} position={position} selectedPokemons={selectedPokemons} />
+      {myPokeSelection.length && pcPokeSelection.length ? (
+        <GameScreen selectedPokemons={[myPokeSelection[0], pcPokeSelection[0]]} />
+      ) : (
+        <Screen pokemones={pokemones} position={position} />
       )}
-      {!loading && !error && screenMode === 'game' && (
-        <GameScreen selectedPokemons={selectedPokemons} />
-      )}
-      <RightControl handleSelection={handleSelection} />
+      <RightControl handleSelection={handleSelection} handleBackSelection={handleBackSelection} />
     </div>
   )
 }
