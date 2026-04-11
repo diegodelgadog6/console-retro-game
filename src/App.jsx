@@ -5,6 +5,7 @@ import GameScreen from './components/GameScreen'
 import Screen from './components/Screen'
 import LeftControl from './components/LeftControl'
 import RightControl from './components/RightControl'
+import PokemonDetail from './components/PokemonDetail'
 import useFetch from './hooks/useFetch'
 
 function App() {
@@ -34,40 +35,6 @@ function App() {
     const minCeiled = Math.ceil(min)
     const maxFloored = Math.floor(max)
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled)
-  }
-
-  const getListPokemones = () => {
-    const list = data?.results?.slice(0, 60).filter((p) => p.url)
-    const plist = list?.map((l) => fetch(l.url).then((res) => res.json()))
-
-    Promise.all(plist).then((values) => {
-      const saniData = values.map((e) => {
-        return {
-          id: e.id,
-          name: e.name,
-          moves: e.moves.map((move) => {
-            return {
-              ...move,
-              attack: getRandomInt(1, 400),
-            }
-          }),
-          sprites: e.sprites,
-        }
-      })
-
-      setPokemones(saniData)
-    })
-  }
-
-  const computerSelection = () => {
-    if (!pokemones.length) return
-
-    const rnd = getRandomInt(0, pokemones.length)
-    const pc = pokemones[rnd]
-
-    if (!pc) return
-
-    setPcPokeSelection([pc])
   }
 
   const handleSelection = () => {
@@ -105,18 +72,43 @@ function App() {
   useEffect(() => {
     if (!data?.results) return
 
-    getListPokemones()
+    const list = data?.results?.slice(0, 60).filter((p) => p.url)
+    const plist = list?.map((l) => fetch(l.url).then((res) => res.json()))
+
+    Promise.all(plist).then((values) => {
+      const saniData = values.map((e) => {
+        return {
+          id: e.id,
+          name: e.name,
+          moves: e.moves.map((move) => {
+            return {
+              ...move,
+              attack: getRandomInt(1, 400),
+            }
+          }),
+          sprites: e.sprites,
+        }
+      })
+
+      setPokemones(saniData)
+    })
   }, [data])
 
+  const actual = pokemones[position] ? [pokemones[position]] : []
+
   return (
-    <div className='min-h-screen bg-white flex items-center justify-center gap-0 p-6'>
-      <LeftControl handleDirection={handleDirection} />
-      {myPokeSelection.length && pcPokeSelection.length ? (
-        <GameScreen selectedPokemons={[myPokeSelection[0], pcPokeSelection[0]]} />
-      ) : (
-        <Screen pokemones={pokemones} position={position} />
-      )}
-      <RightControl handleSelection={handleSelection} handleBackSelection={handleBackSelection} />
+    <div className='min-h-screen bg-[radial-gradient(circle_at_top,_#203a43,_#0f2027_55%,_#0b1116)] flex flex-col items-center justify-center gap-4 p-6'>
+      <div className='flex items-center justify-center gap-0'>
+        <LeftControl handleDirection={handleDirection} />
+        {myPokeSelection.length && pcPokeSelection.length ? (
+          <GameScreen selectedPokemons={[myPokeSelection[0], pcPokeSelection[0]]} />
+        ) : (
+          <Screen pokemones={pokemones} position={position} />
+        )}
+        <RightControl handleSelection={handleSelection} handleBackSelection={handleBackSelection} />
+      </div>
+
+      {!myPokeSelection.length || !pcPokeSelection.length ? <PokemonDetail actual={actual} /> : null}
     </div>
   )
 }

@@ -3,22 +3,22 @@ import React from 'react'
 
 function RightControl({ handleSelection, handleBackSelection }) {
   return (
-    <div className="w-24 h-[280px] bg-rose-500 rounded-r-[30px] p-3 flex flex-col items-center justify-between select-none">
-      <button onClick={() => console.log('Click en +')} className="w-6 h-6 rounded-full bg-zinc-900 text-white text-xs active:scale-95 transition-transform">+</button>
+    <div className="w-28 h-[320px] bg-[linear-gradient(160deg,_#ff6f91,_#ef476f_55%,_#cb3558)] rounded-r-[36px] px-3 py-4 flex flex-col items-center justify-between select-none border-y-4 border-r-4 border-rose-200 shadow-[inset_0_0_12px_rgba(255,255,255,0.28),0_12px_20px_rgba(0,0,0,0.35)]">
+      <button onClick={() => console.log('Click en +')} className="w-6 h-6 rounded-full bg-zinc-900 text-white text-xs active:scale-95 transition-transform shadow-[inset_0_-2px_0_rgba(255,255,255,0.15)]">+</button>
 
-      <div className="grid grid-cols-3 gap-1">
+      <div className="grid grid-cols-3 gap-1 bg-black/10 p-2 rounded-xl border border-white/20">
         <div className="w-7 h-7"></div>
-        <button className="w-7 h-7 rounded-full bg-zinc-900 text-white">x</button>
+        <button className="w-7 h-7 rounded-full bg-zinc-900 text-white shadow-[inset_0_-2px_0_rgba(255,255,255,0.15)]">x</button>
         <div className="w-7 h-7"></div>
-        <button className="w-7 h-7 rounded-full bg-zinc-900 text-white">y</button>
-        <button className="w-7 h-7 rounded-full bg-zinc-900 text-white">o</button>
-        <button onClick={handleSelection} className="w-7 h-7 rounded-full bg-zinc-900 text-white">a</button>
+        <button className="w-7 h-7 rounded-full bg-zinc-900 text-white shadow-[inset_0_-2px_0_rgba(255,255,255,0.15)]">y</button>
+        <button className="w-7 h-7 rounded-full bg-zinc-900 text-white shadow-[inset_0_-2px_0_rgba(255,255,255,0.15)]">o</button>
+        <button onClick={handleSelection} className="w-7 h-7 rounded-full bg-zinc-900 text-white shadow-[inset_0_-2px_0_rgba(255,255,255,0.15)]">a</button>
         <div className="w-7 h-7"></div>
-        <button onClick={handleBackSelection} className="w-7 h-7 rounded-full bg-zinc-900 text-white">b</button>
+        <button onClick={handleBackSelection} className="w-7 h-7 rounded-full bg-zinc-900 text-white shadow-[inset_0_-2px_0_rgba(255,255,255,0.15)]">b</button>
         <div className="w-7 h-7"></div>
       </div>
 
-      <button className="w-12 h-12 rounded-full bg-zinc-900 text-white text-lg">R</button>
+      <button className="w-12 h-12 rounded-full bg-zinc-900 text-white text-lg shadow-[inset_0_-3px_0_rgba(255,255,255,0.15)]">R</button>
     </div>
   )
 }
