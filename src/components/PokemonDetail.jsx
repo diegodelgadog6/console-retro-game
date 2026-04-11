@@ -1,7 +1,5 @@
 import React from 'react'
 
-const formatMoveName = (name = '') => name.replace(/-/g, ' ')
-
 function PokemonDetail({ actual = [] }) {
   if (!actual?.length) {
     return (
@@ -42,7 +40,7 @@ function PokemonDetail({ actual = [] }) {
             className='flex items-center justify-between rounded-lg bg-white/70 px-3 py-2 shadow-[inset_0_0_0_1px_rgba(148,163,184,0.2)]'
           >
             <span className='text-base font-semibold capitalize text-slate-800'>
-              {formatMoveName(move?.move?.name)}
+              {move?.move?.name?.replace(/-/g, ' ')}
             </span>
             <span className='rounded-md bg-red-500 px-2 py-1 text-sm font-bold text-white'>
               {move?.attack ?? '-'}
