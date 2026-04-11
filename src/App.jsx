@@ -102,7 +102,10 @@ function App() {
       <div className='flex items-center justify-center gap-0'>
         <LeftControl handleDirection={handleDirection} />
         {myPokeSelection.length && pcPokeSelection.length ? (
-          <GameScreen selectedPokemons={[myPokeSelection[0], pcPokeSelection[0]]} />
+          <GameScreen
+            key={`${myPokeSelection[0]?.id}-${pcPokeSelection[0]?.id}`}
+            selectedPokemons={[myPokeSelection[0], pcPokeSelection[0]]}
+          />
         ) : (
           <Screen pokemones={pokemones} position={position} />
         )}
