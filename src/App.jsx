@@ -80,6 +80,7 @@ function App() {
         return {
           id: e.id,
           name: e.name,
+          types: e.types.map((item) => item.type.name),
           moves: e.moves.map((move) => {
             return {
               ...move,

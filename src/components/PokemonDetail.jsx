@@ -10,6 +10,7 @@ function PokemonDetail({ actual = [] }) {
   }
 
   const pokemon = actual[0]
+  const mainType = pokemon?.types?.[0] ?? 'unknown'
   const moves = pokemon?.moves?.slice(0, 10) ?? []
 
   return (
@@ -17,6 +18,9 @@ function PokemonDetail({ actual = [] }) {
       <div className='mb-4 rounded-xl bg-white/80 p-4 shadow-[inset_0_0_0_1px_rgba(148,163,184,0.2)]'>
         <p className='text-xs font-bold tracking-[0.2em] text-slate-500'>#{pokemon?.id}</p>
         <h2 className='text-3xl font-black uppercase text-slate-800'>{pokemon?.name}</h2>
+        <span className='mt-2 inline-block rounded-full bg-blue-500 px-4 py-1 text-sm font-bold uppercase tracking-wide text-white'>
+          {mainType}
+        </span>
       </div>
 
       <div className='mb-4 grid grid-cols-2 gap-3'>
