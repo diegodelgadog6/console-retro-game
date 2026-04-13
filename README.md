@@ -6,7 +6,7 @@ La aplicacion consume datos de PokeAPI, permite seleccionar dos Pokemon y abrir 
 
 ## Captura
 
-![Vista del juego](src/assets/hero.png)
+![Vista del juego](src/assets/console.png)
 
 ## Demo funcional
 
