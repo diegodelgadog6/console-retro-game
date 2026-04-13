@@ -4,6 +4,10 @@ Interfaz retro estilo consola para explorar Pokemon y jugar una batalla 1v1 basi
 
 La aplicacion consume datos de PokeAPI, permite seleccionar dos Pokemon y abrir un modo combate con puntos de vida y ataques.
 
+## Captura
+
+![Vista del juego](src/assets/hero.png)
+
 ## Demo funcional
 
 1. Navegas por una grilla de Pokemon con la cruceta.
