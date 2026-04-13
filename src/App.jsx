@@ -69,11 +69,6 @@ function App() {
     }
   }
 
-  const handleRestartBattle = () => {
-    setMyPokeSelection([])
-    setPcPokeSelection([])
-  }
-
   useEffect(() => {
     if (!data?.results) return
 
@@ -110,7 +105,6 @@ function App() {
           <GameScreen
             key={`${myPokeSelection[0]?.id}-${pcPokeSelection[0]?.id}`}
             selectedPokemons={[myPokeSelection[0], pcPokeSelection[0]]}
-            onRestart={handleRestartBattle}
           />
         ) : (
           <Screen pokemones={pokemones} position={position} />
