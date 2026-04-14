@@ -1,11 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 function GameScreen({ selectedPokemons = [] }) {
   const [playerPokemon, rivalPokemon] = selectedPokemons
-  const [myHP] = useState(100)
+  const [myHP, setMyHP] = useState(100)
   const [pcHP, setPcHP] = useState(100)
   const [winner, setWinner] = useState(null)
   const playerMoves = playerPokemon?.moves?.slice(0, 4) ?? []
+
+  useEffect(() => {
+    if (!playerPokemon || !rivalPokemon || winner) return
+
+    const damageInterval = setInterval(() => {
+      setMyHP((currentHP) => {
+        if (currentHP <= 0) return currentHP
+
+        const nextHP = Math.max(0, currentHP - 10)
+
+        if (nextHP === 0) {
+          setWinner(rivalPokemon)
+        }
+
+        return nextHP
+      })
+    }, 2000)
+
+    return () => clearInterval(damageInterval)
+  }, [playerPokemon, rivalPokemon, winner])
 
   const handleAttack = (damage) => {
     if (winner) return
@@ -48,7 +68,12 @@ function GameScreen({ selectedPokemons = [] }) {
       </div>
 
       <div className="mt-2">
-        <p className="mb-1 text-xs font-bold uppercase tracking-widest text-emerald-300">Ataques</p>
+        <div className="mb-1 flex items-center justify-between gap-2">
+          <p className="text-xs font-bold uppercase tracking-widest text-emerald-300">Ataques</p>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-200/80">
+            PC pega 10 cada 2s
+          </p>
+        </div>
         <div className="grid grid-cols-2 gap-2">
           {playerMoves.map((move, index) => (
             <button
