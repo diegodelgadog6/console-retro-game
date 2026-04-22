@@ -43,6 +43,26 @@ npm run dev
 
 Vite mostrara una URL local (normalmente http://localhost:5173).
 
+## Deploy en Vercel
+
+1. Sube este proyecto a un repositorio en GitHub.
+2. Entra a Vercel y selecciona `New Project`.
+3. Importa el repositorio `console-retro-game`.
+4. Verifica estos campos:
+	- `Application Preset`: Vite
+	- `Root Directory`: `./`
+	- `Build Command`: `npm run build`
+	- `Output Directory`: `dist`
+5. Pulsa `Deploy`.
+
+No necesitas variables de entorno para esta version del proyecto.
+
+## Donde ver la app publicada
+
+- Al terminar el deploy, Vercel muestra la URL de produccion en la pantalla de resultado.
+- Tambien puedes verla en `Vercel Dashboard > Project > Domains`.
+- URL esperada (ejemplo): `https://console-retro-game.vercel.app`.
+
 ## Scripts disponibles
 
 - `npm run dev`: inicia servidor de desarrollo.
